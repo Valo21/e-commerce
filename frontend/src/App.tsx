@@ -1,8 +1,8 @@
-import { useAppSelector } from "@hooks/redux.ts";
+import { useAppSelector } from "@hooks/redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Themes } from "@store/themes.ts";
+import { Themes } from "@store/themes";
 import { RouterProvider } from "react-router-dom";
-import { router } from "@src/routes.tsx";
+import { router } from "@frontend/routes";
 import { ReactElement } from "react";
 
 function App(): ReactElement {

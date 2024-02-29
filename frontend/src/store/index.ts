@@ -1,10 +1,12 @@
+// @ts-ignore
+
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { productsApi } from "./api/productsApi.ts";
-import cartSlice from "./slices/cartSlice.ts";
-import themeSlice from "./slices/themeSlice.ts";
+import { productsApi } from "./api/productsApi";
+import cartSlice from "./slices/cartSlice";
+import themeSlice from "./slices/themeSlice";
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
-import authSlice from "@store/slices/authSlice.ts";
+import authSlice from "@store/slices/authSlice";
 
 const persistConfig = {
   key: 'root',
@@ -23,13 +25,14 @@ const rootReducer = combineReducers({
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+// @ts-expect-error
 const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      }
     }).concat(productsApi.middleware)
 })
 

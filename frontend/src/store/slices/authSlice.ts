@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "../../../../src/users/entities/user.entity.ts";
+import { User } from "../../../../src/users/entities/user.entity";
 
 interface AuthState {
   user: Partial<User> | null

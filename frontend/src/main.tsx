@@ -4,7 +4,7 @@ import './index.css';
 import { Provider } from "react-redux";
 import store, { persistor } from "@store/index";
 import { PersistGate } from "redux-persist/integration/react";
-import App from "@src/App.tsx";
+import App from "@frontend/App";
 
 const rootElement: HTMLElement | null = document.getElementById("root");
 
