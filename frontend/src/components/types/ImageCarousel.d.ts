@@ -1,0 +1,3 @@
+interface ImageCarouselProps {
+  images: string[]
+}
