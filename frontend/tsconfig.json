@@ -20,7 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@frontend/*": ["./src/*"],
+      "@src/*": ["./src/*"],
       "@lib/*": ["./src/lib/*"],
       "@components/*": ["./src/components/*"],
       "@store/*": ["./src/store/*"],

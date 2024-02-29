@@ -7,13 +7,19 @@ const root = resolve(__dirname, 'src')
 
 export default defineConfig({
   plugins: [react()],
-  root: __dirname,
-  build: {
-    outDir: resolve(__dirname, 'dist')
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      }
+    }
   },
   resolve: {
     alias: {
-      "@frontend": resolve(root),
+      "@src": resolve(root),
       "@lib": resolve(root, "lib"),
       "@components": resolve(root, "components"),
       "@store": resolve(root, "store"),

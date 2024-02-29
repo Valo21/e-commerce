@@ -16,22 +16,6 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-
-
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-
-    "paths": {
-      "@frontend/*": ["./frontend/src/*"],
-      "@lib/*": ["./frontend/src/lib/*"],
-      "@components/*": ["./frontend/src/components/*"],
-      "@store/*": ["./frontend/src/store/*"],
-      "@hooks/*": ["./frontend/src/hooks/*"],
-      "@pages/*": ["./frontend/src/pages/*"],
-      "@assets/*": ["./frontend/src/assets/*"]
-    }
-  },
-  "include": ["src"]
+    "noFallthroughCasesInSwitch": false
+  }
 }
