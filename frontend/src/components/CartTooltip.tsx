@@ -4,6 +4,7 @@ import ProductItem from "./ProductItem";
 import List from "@mui/material/List";
 import { useAppSelector } from "@hooks/redux";
 import { ReactElement } from "react";
+import { CartItem } from "@components/types/ProductItem";
 
 function CartTooltip() : ReactElement {
   const products = useAppSelector(state => state.cart.products);
@@ -15,7 +16,7 @@ function CartTooltip() : ReactElement {
       </Typography>
         <List>
           {
-            Object.entries(products).map((item, i) => <ProductItem key={i} data={item[1]}/>)
+            Object.entries(products).map((item, i) => <ProductItem key={i} data={item[1] as CartItem}/>)
           }
         </List>
       <Box display='flex' justifyContent='end' mb={2}>

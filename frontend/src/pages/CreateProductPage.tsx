@@ -23,7 +23,7 @@ function CreateProductPage() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     createProduct(formData)
-    const res = await createProduct(formData);
+    await createProduct(formData);
 
     /*
     if (res.error) {

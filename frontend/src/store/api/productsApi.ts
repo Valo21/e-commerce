@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Product } from "../../../../src/products/entities/product.entity.ts";
+import { Product } from "@backend/products/entities/product.entity.ts";
 
 export const productsApi = createApi({
   reducerPath: 'productsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/v1/products', credentials: 'include' }),
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/v1/products', credentials: 'include' }),
   endpoints: (builder) => ({
     getProducts: builder.query<Product[], null>({
       query: () => ``,

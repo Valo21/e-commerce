@@ -12,7 +12,7 @@ function AuthPage() {
         }
         return res.json()
       })
-      .then(data => {
+      .then(() => {
 
       })
   }
@@ -26,7 +26,7 @@ function AuthPage() {
         }
         return res.json()
       })
-      .then(data => {
+      .then(() => {
 
       })
   }
@@ -42,7 +42,7 @@ function AuthPage() {
           <Button variant='contained' type='submit'>Log in</Button>
           <Button variant='contained'>Register</Button>
         </Paper>
-        <Paper sx={{display: 'flex', flexDirection: 'column', padding: 4, gap: 2, maxWidth: 450, width: '100%'}} component='form' onSubmit={handleLogin}>
+        <Paper sx={{display: 'flex', flexDirection: 'column', padding: 4, gap: 2, maxWidth: 450, width: '100%'}} component='form' onSubmit={handleRegister}>
           <Typography variant='h4' textAlign='center' mb={6}>
             Register
           </Typography>
