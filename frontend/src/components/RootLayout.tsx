@@ -89,7 +89,7 @@ function AppNavbar(): React.ReactElement {
               >
                   <SettingsIcon/>
               </IconButton>
-              <Typography variant='h5'>John Doe</Typography>
+              <Typography variant='h5'>{user.givenName} {user.familyName}</Typography>
           </>
           : <>
             <Button variant='contained' onClick={()=> navigate('/auth')}>Join</Button>

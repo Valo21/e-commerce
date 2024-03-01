@@ -1,36 +1,31 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { CreateUserDto } from "../users/dto/create-user.dto";
-import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "../users/entities/user.entity";
-import { Repository } from "typeorm";
 import { UsersService } from "../users/users.service";
+import { JwtService } from "@nestjs/jwt";
+import { User } from "../users/entities/user.entity";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UsersService,
+    private jwtService: JwtService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.userService.findOneByEmail(email);
-    if (user && user.password === pass) {
+    if (user && bcrypt.compareSync(pass, user.password)) {
       const { password, ...result } = user;
       return result;
     }
     return null;
   }
-  async signIn(email: string, pass: string) {
-    const user = await this.userService.findOneByEmail(email);
-    if (user == null) {
-      throw new UnauthorizedException('');
-    }
-    if (user.password !== pass) {
-      throw new UnauthorizedException();
-    }
-    const { password, ...result } = user;
-    // TODO: Generate a JWT and return it here
-    // instead of the user object
-    return result;
+
+  async signIn(user: Partial<User>) {
+    const { createdAt, updatedAt, ...payload } = user;
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
   async signUp(createUserDto: CreateUserDto) {
@@ -38,7 +33,11 @@ export class AuthService {
     if (user) {
       throw new UnauthorizedException('Email already in use');
     }
-    this.userService.create(createUserDto);
+    createUserDto.password = bcrypt.hashSync(
+      createUserDto.password,
+      bcrypt.genSaltSync(10),
+    );
+    return await this.userService.create(createUserDto);
   }
   remove(id: number) {
     return `This action removes a #${id} auth`;

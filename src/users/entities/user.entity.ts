@@ -24,7 +24,7 @@ export class User {
   })
   email: string;
 
-  @Column({ select: false })
+  @Column()
   password: string;
 
   @OneToMany(() => Product, (product: Product) => product.seller)

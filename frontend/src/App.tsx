@@ -7,6 +7,7 @@ import { ReactElement } from "react";
 
 function App(): ReactElement {
   const { darkMode } = useAppSelector(state => state.theme);
+
   return(
     <ThemeProvider theme={darkMode ? Themes.DARK : Themes.LIGHT}>
       <CssBaseline />

@@ -5,29 +5,45 @@ import {
   Body,
   Param,
   Delete,
+  UseGuards,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { SignInDto } from "./dto/sign-in.dto";
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { Request, Response } from 'express';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
   async signup(@Body() createUserDto: CreateUserDto) {
-    await this.authService.signUp(createUserDto);
-    await this.authService.signIn(createUserDto.email, createUserDto.password);
-    return;
+    const user = await this.authService.signUp(createUserDto);
+    return {
+      id: user.id,
+    };
   }
 
+  @UseGuards(AuthGuard('local'))
   @Post('signin')
-  signin(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+  async signin(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    const { access_token } = await this.authService.signIn(req.user);
+    res
+      .cookie('access_token', access_token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        expires: new Date(Date.now() + 7 * 24 * 60 * 1000),
+      })
+      .send({ status: 'ok' });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  get() {
-    return 'auth';
+  get(@Req() req: any) {
+    return req.user;
   }
 
   @Delete(':id')
