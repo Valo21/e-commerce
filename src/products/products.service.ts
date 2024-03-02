@@ -20,13 +20,11 @@ export class ProductsService {
     imgPaths: string[],
   ) {
     const seller: User = await this.userService.findOne(sellerId);
-    return this.productRepository.save(
-      this.productRepository.create({
-        ...createProductDto,
-        seller,
-        picture: imgPaths[0],
-      }),
-    );
+    return this.productRepository.save({
+      ...createProductDto,
+      seller,
+      picture: imgPaths[0],
+    });
   }
 
   findAll(): Promise<Product[]> {

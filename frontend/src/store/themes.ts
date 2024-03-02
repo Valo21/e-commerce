@@ -43,7 +43,7 @@ const commonTheme: ThemeOptions = {
     MuiToolbar: {
       styleOverrides: {
         root: ({theme}) => ({
-          maxWidth: 1024,
+          maxWidth: 1200,
           width: '100%',
           [theme.breakpoints.up('sm')]: {
             marginTop: 10,

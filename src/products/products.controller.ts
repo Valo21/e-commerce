@@ -7,26 +7,29 @@ import {
   Param,
   Delete,
   UseInterceptors,
-  UploadedFile,
-} from '@nestjs/common';
+  UploadedFile, UseGuards, Res, Req
+} from "@nestjs/common";
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { Request } from 'express';
+import { User } from "../users/entities/user.entity";
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @UseInterceptors(FileInterceptor('images', { dest: './uploads' }))
   create(
     @UploadedFile() files: Express.Multer.File,
     @Body() createProductDto: CreateProductDto,
+    @Req() req: any,
   ) {
-    const user = {
-      id: '45d6edff-e0f0-4f26-9468-20c1fd8c5659',
-    };
+    const user = req.user as User;
     const paths = [files.filename];
     return this.productsService.create(createProductDto, user.id, paths);
   }

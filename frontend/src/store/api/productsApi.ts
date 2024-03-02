@@ -18,6 +18,9 @@ export const productsApi = createApi({
     getProduct: builder.query<Product, string>({
       query: (productId: string) => '/' +  productId
     }),
+    getOwnProducts: builder.query<Product[], null>({
+      query: () => '/me',
+    }),
     createProduct: builder.mutation<Product, FormData>({
       query: (data) => ({
         url: "",
@@ -28,4 +31,9 @@ export const productsApi = createApi({
   }),
 })
 
-export const { useGetProductsQuery, useCreateProductMutation, useGetProductQuery, useSearchProductsQuery } = productsApi;
+export const { useGetProductsQuery,
+  useCreateProductMutation,
+  useGetProductQuery,
+  useSearchProductsQuery,
+  useGetOwnProductsQuery
+} = productsApi;

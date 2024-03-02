@@ -1,6 +1,7 @@
 import { Avatar, Box, Paper, SxProps, Theme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ArrowForwardIosRounded, PermIdentityRounded, SecurityRounded } from "@mui/icons-material";
+import { useAppSelector } from "@hooks/redux.ts";
 
 const paths = [
   {
@@ -16,12 +17,14 @@ const paths = [
 ]
 
 function ProfilePage() {
+  const user = useAppSelector(state => state.auth.user)!;
+
   return (
     <>
       <Paper sx={styles.paper}>
         <Avatar sx={{width: 100, height: 100}}/>
         <Typography variant='h4'>
-          John Doe
+          {user.givenName} {user.familyName}
         </Typography>
       </Paper>
       {

@@ -35,7 +35,8 @@ const items = [
   {
     title: 'My Products',
     icon: <ExploreRounded />,
-    path: '/my-products'
+    path: '/my-products',
+    authorized: true
   }
 ]
 
@@ -168,11 +169,12 @@ function AppNavbar(): React.ReactElement {
             },
           })}>
             {items.map((item) => (
+              ((item.authorized && user) || (!item.authorized)) ?
               <ListItem key={item.title} disablePadding onClick={() => navigate(item.path)}>
                 <ListItemButton>
                   <ListItemText sx={{textWrap: 'nowrap'}} primary={item.title} />
                 </ListItemButton>
-              </ListItem>
+              </ListItem> : null
             ))}
           </Box>
           <Tooltip
