@@ -5,7 +5,7 @@ import {
   JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
@@ -20,14 +20,22 @@ export class Product {
   @Column('decimal')
   price: number;
 
-  @Column()
-  picture: string;
-
-  @ManyToOne(() => User, (user: User) => user.products, {
-    cascade: true,
+  @Column('jsonb', {
+    array: false,
+    default: () => "'[]'",
+    nullable: false,
   })
+  images: Array<string>;
+
+  @ManyToOne(() => User, (user: User) => user.products)
   @JoinTable()
   seller: User;
+
+  @Column()
+  sellerId: string;
+
+  @Column()
+  category: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -41,4 +49,6 @@ export class Product {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   updatedAt: Date;
+
+  related?: Product[];
 }

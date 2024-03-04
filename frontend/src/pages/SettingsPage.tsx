@@ -1,9 +1,10 @@
 import { Container } from "@mui/material";
+import UnderConstruction from "@components/UnderConstruction.tsx";
 
 function SettingsPage() {
   return (
     <Container>
-      Settings
+      <UnderConstruction/>
     </Container>
   );
 }

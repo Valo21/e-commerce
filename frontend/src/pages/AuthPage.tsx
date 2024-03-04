@@ -2,10 +2,11 @@ import { Box, Button, Paper, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 function AuthPage() {
-  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -15,11 +16,11 @@ function AuthPage() {
       password: inputs.password
     })
       .then(() => {
-        alert('Signed in!');
-        navigate('/')
+        enqueueSnackbar('Signed in!', { variant: 'success'})
+        location.href = '/';
       })
       .catch(e => {
-        alert(e.response.data.message)
+        enqueueSnackbar(e.response.data.message, { variant: 'error'})
       })
   }
 
@@ -32,10 +33,10 @@ function AuthPage() {
     }
     axios.post('/api/v1/auth/signup', inputs)
       .then(() => {
-        alert('Signed up!');
+        enqueueSnackbar('Signed up!', { variant: 'success'})
       })
       .catch(e => {
-        alert(e.response.data.message)
+        enqueueSnackbar(e.response.data.message, { variant: 'error'})
       })
   }
   return (

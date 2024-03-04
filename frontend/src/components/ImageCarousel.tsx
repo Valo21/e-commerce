@@ -2,17 +2,17 @@ import { ReactElement } from "react";
 import Carousel from "react-material-ui-carousel";
 import { Box, CardMedia } from "@mui/material";
 
-function ImageCarousel({images}: ImageCarouselProps) : ReactElement {
+function ImageCarousel({images, title}: ImageCarouselProps) : ReactElement {
 
   return (
-    <Carousel>
+    <Carousel animation='slide' sx={{height: 480}}>
       {
         images.map( (image, i) =>
           <Box key={i}>
             <CardMedia
-              sx={{ aspectRatio: 'auto', height: 400 }}
+              sx={{ aspectRatio: 'auto', height: 480, backgroundSize: 'contain' }}
               image={`http://localhost:3000/uploads/${image}`}
-              title="green iguana"
+              title={title}
             />
           </Box>
         )

@@ -1,3 +1,4 @@
 interface ImageCarouselProps {
-  images: string[]
+  images: string[],
+  title: string
 }

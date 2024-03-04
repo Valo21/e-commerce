@@ -19,7 +19,7 @@ function ProductItem({data}: ProductItemProps) : ReactElement {
         <ListItemAvatar>
           <CardMedia
             sx={{ height: 50 }}
-            image={`http://localhost:3000/uploads/${data.picture}`}
+            image={`http://localhost:3000/uploads/${data.images[0]}`}
             title="green iguana"
           />
         </ListItemAvatar>
@@ -30,8 +30,7 @@ function ProductItem({data}: ProductItemProps) : ReactElement {
               <Typography
                 sx={{ display: 'inline' }}
                 component="span"
-                variant="body2"
-                color="text.primary"
+                variant="body1"
               >
                 {data.price}
               </Typography>
@@ -50,7 +49,6 @@ function ProductItem({data}: ProductItemProps) : ReactElement {
           sx={{ display: 'inline' }}
           component="span"
           variant="body1"
-          color="text.primary"
           alignSelf='center'
         >
           {data.amount}

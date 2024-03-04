@@ -1,44 +1,43 @@
+import React from "react";
 import { Box, Button, InputAdornment, MenuItem, Paper, TextField } from "@mui/material";
 import { useCreateProductMutation } from "@store/api/productsApi";
-import React from "react";
+import { useSnackbar } from "notistack";
+import ImageUploader from "@components/ImageUploader.tsx";
 
+enum ProductCategory {
+  Clothing = 'Clothing',
+  Electronics = 'Electronics',
+  Furniture = 'Furniture',
+  PersonalCare = 'Personal Care',
+  Vehicles = 'Vehicles',
+  Pets = 'Pets',
+}
 
-//TODO: Convert Categories to enum
-const currencies = [
-  {
-    value: 'Technology',
-    label: '$',
-  },
-  {
-    value: 'Clothes',
-    label: '฿',
-  },
-];
+const categories = Object.values(ProductCategory)
 
 
 function CreateProductPage() {
-  //TODO: Change create product fetch method
   const [createProduct] = useCreateProductMutation();
+  const { enqueueSnackbar } = useSnackbar();
   async function handlePublish(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    createProduct(formData)
-    await createProduct(formData);
+    const res = await createProduct(formData);
 
-    /*
     if (res.error) {
-      alert('error')
+      enqueueSnackbar(res.error.data.message, { variant: 'error'})
       return
     }
-    */
-    alert('published')
+
+    enqueueSnackbar('Published!', { variant: 'success'})
+    location.href = '/products/' + res.data.id;
   }
 
   return (
     <>
       <Paper sx={{padding: 2}}>
         <Box encType='multipart/form-data' component='form' display='flex' flexDirection='column' gap={2} onSubmit={handlePublish}>
-          <input name='images' type='file' multiple required/>
+          <ImageUploader/>
           <TextField name='name' id="standard-basic" label="Name" variant="standard" required/>
           <TextField
             name='price'
@@ -56,15 +55,16 @@ function CreateProductPage() {
           />
           <TextField
             id="outlined-select-currency"
+            name='category'
             select
             label="Category"
-            defaultValue="Technology"
+            defaultValue={categories[0]}
             helperText="Please select a category"
             required
           >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.value}
+            {categories.map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
               </MenuItem>
             ))}
           </TextField>

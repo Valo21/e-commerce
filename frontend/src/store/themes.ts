@@ -62,15 +62,6 @@ const commonTheme: ThemeOptions = {
         }
       }
     },
-    MuiTooltip: {
-      styleOverrides: {
-        tooltip: ({theme}) => ({
-          backgroundColor: theme.palette.secondary.main,
-          color: theme.palette.primary.contrastText,
-          boxShadow: 'rgba(17, 17, 26, 0.1) 0px 0px 16px'
-        })
-      }
-    },
     MuiPaper: {
       styleOverrides: {
         root:{
@@ -86,7 +77,7 @@ const commonTheme: ThemeOptions = {
           },
         })
       }
-    }
+    },
   }
 };
 

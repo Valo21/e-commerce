@@ -57,11 +57,7 @@ function AppNavbar(): React.ReactElement {
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       if(e.key == 'Enter'){
-        navigate('/search', {
-          state: {
-            p: e.currentTarget.value,
-          }
-        })
+        navigate('/search?q='+ e.currentTarget.value);
       }
   }
 
@@ -100,6 +96,7 @@ function AppNavbar(): React.ReactElement {
       <Divider />
       <List>
         {items.map((item) => (
+          ((item.authorized && user) || (!item.authorized)) ?
           <ListItem key={item.title} disablePadding onClick={() => navigate(item.path)}>
             <ListItemButton>
               <ListItemIcon>
@@ -108,6 +105,7 @@ function AppNavbar(): React.ReactElement {
               <ListItemText primary={item.title} />
             </ListItemButton>
           </ListItem>
+            : null
         ))}
       </List>
       <ThemeSwitch onChange={handleThemeSwitch} checked={darkMode} onClick={(e)=>e.stopPropagation()}/>
@@ -198,11 +196,22 @@ function AppNavbar(): React.ReactElement {
               <ShoppingCartIcon/>
             </IconButton>
           </Tooltip>
+          {
+            !user ? <Button variant='contained' color='secondary' onClick={()=> navigate('/auth')} sx={(theme) =>({
+              ml: 3,
+              [theme.breakpoints.down('sm')]: {
+                display: 'none'
+              },
+            })}>Join</Button> : null
+          }
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={toggleDrawer(false)} transitionDuration={500}>
         {DrawerList}
       </Drawer>
+      <ThemeSwitch onChange={handleThemeSwitch} checked={darkMode} sx={(theme) => ({[theme.breakpoints.down('sm')] : {
+        display: 'none'
+        }})}/>
     </>
   )
 }

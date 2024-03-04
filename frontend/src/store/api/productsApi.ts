@@ -16,7 +16,7 @@ export const productsApi = createApi({
       })
     }),
     getProduct: builder.query<Product, string>({
-      query: (productId: string) => '/' +  productId
+      query: (productId: string) => `/${productId}?related=true`
     }),
     getOwnProducts: builder.query<Product[], null>({
       query: () => '/me',
@@ -35,5 +35,5 @@ export const { useGetProductsQuery,
   useCreateProductMutation,
   useGetProductQuery,
   useSearchProductsQuery,
-  useGetOwnProductsQuery
+  useGetOwnProductsQuery,
 } = productsApi;

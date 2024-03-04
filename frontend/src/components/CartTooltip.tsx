@@ -7,7 +7,8 @@ import { ReactElement } from "react";
 import { CartItem } from "@components/types/ProductItem";
 
 function CartTooltip() : ReactElement {
-  const products = useAppSelector(state => state.cart.products);
+  const array = useAppSelector(state => state.cart.products);
+  const products = Object.values(array);
 
   return (
     <Box>
@@ -16,9 +17,12 @@ function CartTooltip() : ReactElement {
       </Typography>
         <List>
           {
-            Object.entries(products).map((item, i) => <ProductItem key={i} data={item[1] as CartItem}/>)
+            products.map((item, i) => <ProductItem key={i} data={item as CartItem}/>)
           }
         </List>
+      <Typography variant='h6' justifyContent='end' display='flex'>
+        Total: USD {products.reduce((sum, current) => sum + current.price * current.amount, 0).toFixed(2)}
+      </Typography>
       <Box display='flex' justifyContent='end' mb={2}>
         <Button variant='contained'>
           Buy

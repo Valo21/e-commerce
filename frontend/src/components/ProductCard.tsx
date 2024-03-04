@@ -8,13 +8,13 @@ function ProductCard({ data }: ProductCardProps) : ReactElement {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345, minWidth: '100%' }} onClick={() => navigate('/products', {state: {productId: data.id}})}>
+    <Card sx={{ maxWidth: 345, minWidth: '100%', height: '100%' }} onClick={() => navigate('/products/' + data.id)}>
       {
         Object.keys(data).length ?
           <>
             <CardMedia
               sx={{ height: 200 }}
-              image={`http://localhost:3000/uploads/${data.picture}`}
+              image={`http://localhost:3000/uploads/${data.images[0]}`}
               title="green iguana"
             />
             <CardContent>

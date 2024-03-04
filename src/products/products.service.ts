@@ -23,7 +23,7 @@ export class ProductsService {
     return this.productRepository.save({
       ...createProductDto,
       seller,
-      picture: imgPaths[0],
+      images: imgPaths,
     });
   }
 

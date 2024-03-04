@@ -16,10 +16,10 @@ async function bootstrap() {
   const clientPath = join(__dirname, '../frontend/dist');
   const uploadsPath = join(__dirname, '../uploads');
 
+  app.use(cookieParser());
   app.useStaticAssets(clientPath);
   app.useStaticAssets(uploadsPath, { prefix: '/uploads/' });
   app.setGlobalPrefix('api/v1');
-  app.use(cookieParser());
 
   app.use(
     session({
