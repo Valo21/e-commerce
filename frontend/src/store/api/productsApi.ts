@@ -16,7 +16,8 @@ export const productsApi = createApi({
       })
     }),
     getProduct: builder.query<Product, string>({
-      query: (productId: string) => `/${productId}?related=true`
+      query: (productId: string) => `/${productId}?related=true`,
+      providesTags: (result, error, id) => [{ id }],
     }),
     getOwnProducts: builder.query<Product[], null>({
       query: () => '/me',
@@ -28,6 +29,14 @@ export const productsApi = createApi({
         body: data,
       }),
     }),
+    updateProduct: builder.mutation<Product, [string, FormData]>({
+      query: ([id, data]) => ({
+        url: `/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ id }],
+    }),
   }),
 })
 
@@ -36,4 +45,5 @@ export const { useGetProductsQuery,
   useGetProductQuery,
   useSearchProductsQuery,
   useGetOwnProductsQuery,
+  useUpdateProductMutation
 } = productsApi;

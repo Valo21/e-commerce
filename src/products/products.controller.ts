@@ -12,7 +12,7 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
+import { FileInterceptor, FilesInterceptor, NoFilesInterceptor } from "@nestjs/platform-express";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { Request } from 'express';
 import { User } from "../users/entities/user.entity";
@@ -54,7 +54,9 @@ export class ProductsController {
   }
 
   @Patch(':id')
+  @UseInterceptors(NoFilesInterceptor())
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+    console.log(updateProductDto);
     return this.productsService.update(id, updateProductDto);
   }
 

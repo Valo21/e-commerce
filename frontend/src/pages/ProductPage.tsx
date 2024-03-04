@@ -1,8 +1,8 @@
-import { Button, Container, Grid, Paper, SxProps, Theme } from "@mui/material";
+import { Box, Button, Container, Grid, InputAdornment, Paper, SxProps, TextField, Theme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ProductCard from "@components/ProductCard";
 import { useParams } from "react-router-dom";
-import { useGetProductQuery } from "@store/api/productsApi";
+import { useGetProductQuery, useUpdateProductMutation } from "@store/api/productsApi";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { addProduct } from "@store/slices/cartSlice";
 import ImageCarousel from "@components/ImageCarousel";
@@ -10,18 +10,34 @@ import { USDollar } from "@lib/utils.ts";
 import { Product } from "@backend/products/entities/product.entity.ts";
 import IconButton from "@mui/material/IconButton";
 import { EditRounded } from "@mui/icons-material";
-import { useState } from "react";
+import React, { useState } from "react";
+import { enqueueSnackbar } from "notistack";
 
 function ProductPage() {
   const params = useParams()
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.auth.user);
-  const { data } = useGetProductQuery(params.id!);
+  let { data } = useGetProductQuery(params.id!);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [updateProduct] = useUpdateProductMutation()
 
   if (data == undefined) return (<></>);
 
   const editable = user && user.id === data.sellerId;
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    if (data == undefined) return null;
+    const res = await updateProduct([data.id, formData])
+
+    if (res.error) {
+      enqueueSnackbar(res.error.data.message, { variant: 'error'})
+      return
+    }
+    enqueueSnackbar('Product updated', { variant: 'success'})
+    setIsEditing(false)
+  }
 
   return (
     <>
@@ -42,18 +58,50 @@ function ProductPage() {
           : null
         }
         <ImageCarousel images={data.images} title={data.name}/>
-        <Typography variant='h5'>
-          {data.name}
-        </Typography>
-        <Typography variant='h6'>
-          USD {USDollar.format(data.price)}
-        </Typography>
-        <Button variant='contained'>
-          Buy now
-        </Button>
-        <Button variant='contained' onClick={()=> dispatch(addProduct(data))}>
-          Add to cart
-        </Button>
+        {
+          isEditing ?
+            <>
+              <Box component='form' encType='multipart/form-data' onSubmit={handleSubmit}  sx={styles.form}>
+                <TextField name='name' defaultValue={data.name} id="standard-basic" label="Name" variant="standard" required/>
+                <TextField
+                  name='price'
+                  label="Price"
+                  id="standard-start-adornment"
+                  InputProps={{
+                    endAdornment: <InputAdornment position="start">USD</InputAdornment>,
+                  }}
+                  inputProps={{
+                    step: 0.01
+                  }}
+                  defaultValue={data.price}
+                  variant="standard"
+                  type='number'
+                  required
+                />
+                <Button variant='contained' color='success' type='submit'>
+                  Save
+                </Button>
+                <Button variant='contained' onClick={()=> setIsEditing(false)} color='error'>
+                  Cancel
+                </Button>
+              </Box>
+            </>
+            :
+            <>
+              <Typography variant='h5'>
+                {data.name}
+              </Typography>
+              <Typography variant='h6'>
+                USD {USDollar.format(data.price)}
+              </Typography>
+              <Button variant='contained'>
+                Buy now
+              </Button>
+              <Button variant='contained' onClick={()=> dispatch(addProduct(data))}>
+                Add to cart
+              </Button>
+            </>
+        }
       </Paper>
       <Typography variant='h6'>
         Related
@@ -77,13 +125,19 @@ const styles: {[key: string]: SxProps<Theme>} = {
   paper: () => ({
     display: 'flex',
     position: 'relative',
-    padding: 2,
     flexDirection: 'column',
     gap: 2,
+    padding: 2,
   }),
+  form: {
+    display: 'flex',
+    position: 'relative',
+    flexDirection: 'column',
+    gap: 2,
+  },
   relatedContainer: () => ({
     overflowX: 'scroll',
-}),
+  }),
   relatedBox: () => ({
     minWidth: 'fit-content',
     padding: '10px 0px'
