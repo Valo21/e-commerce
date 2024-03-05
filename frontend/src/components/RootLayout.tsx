@@ -209,8 +209,8 @@ function AppNavbar(): React.ReactElement {
       <Drawer open={open} onClose={toggleDrawer(false)} transitionDuration={500}>
         {DrawerList}
       </Drawer>
-      <ThemeSwitch onChange={handleThemeSwitch} checked={darkMode} sx={(theme) => ({[theme.breakpoints.down('sm')] : {
-        display: 'none'
+      <ThemeSwitch onChange={handleThemeSwitch} checked={darkMode} name='fixed' sx={(theme) => ({[theme.breakpoints.down('sm')] : {
+          display: 'none',
         }})}/>
     </>
   )

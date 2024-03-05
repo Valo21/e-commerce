@@ -1,8 +1,8 @@
 import { styled } from "@mui/material/styles";
 import { Switch } from "@mui/material";
 
-const ThemeSwitch = styled(Switch)(({ theme }) => ({
-  position: 'absolute',
+const ThemeSwitch = styled(Switch)(({ theme, name }) => ({
+  position: (name == 'fixed') ? 'fixed' : 'absolute',
   bottom: 15,
   right: 10,
   width: 62,
