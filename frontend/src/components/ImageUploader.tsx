@@ -1,11 +1,16 @@
 import { Box, Icon } from "@mui/material";
 import { UploadRounded } from "@mui/icons-material";
-import { useState } from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 
 
 function ImageUploader() {
-  const [files, setFiles] = useState<string[]>([])
+  const [files, setFiles] = useState<File[]>([])
+  function handleInput(e: React.FormEvent<HTMLInputElement>) {
+    const target: HTMLInputElement = e.target as HTMLInputElement;
+    setFiles(Array.from(target.files as FileList));
+  }
+
   return (
     <Box
       sx={{
@@ -32,9 +37,7 @@ function ImageUploader() {
         type='file'
         name='images'
         multiple
-        onInput={(e) => {
-          setFiles(Object.values(e.target.files))
-        }}
+        onInput={handleInput}
         style={{
           width: '100%',
           height: '100%',

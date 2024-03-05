@@ -2,6 +2,7 @@ import { Avatar, Box, Paper, SxProps, Theme } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { ArrowForwardIosRounded, PermIdentityRounded, SecurityRounded } from "@mui/icons-material";
 import { useAppSelector } from "@hooks/redux.ts";
+import { ReactElement } from "react";
 
 const paths = [
   {
@@ -16,7 +17,7 @@ const paths = [
   }
 ]
 
-function ProfilePage() {
+function ProfilePage(): ReactElement {
   const user = useAppSelector(state => state.auth.user)!;
 
   return (

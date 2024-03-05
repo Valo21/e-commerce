@@ -1,8 +1,9 @@
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import { ReactElement } from "react";
 
-function NotFoundPage() {
+function NotFoundPage(): ReactElement {
   return (
     <>
       <Box display='flex' justifyContent='center' alignItems='center' height='100vh' flexDirection='column'>

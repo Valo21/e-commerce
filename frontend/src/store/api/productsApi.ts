@@ -17,7 +17,7 @@ export const productsApi = createApi({
     }),
     getProduct: builder.query<Product, string>({
       query: (productId: string) => `/${productId}?related=true`,
-      providesTags: (result, error, id) => [{ id }],
+      providesTags: (_, __, id) => [{ type: 'Post' as never, id}],
     }),
     getOwnProducts: builder.query<Product[], null>({
       query: () => '/me',
@@ -35,7 +35,7 @@ export const productsApi = createApi({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: (result, error, { id }) => [{ id }],
+      invalidatesTags: (_, __, [ id ]) => [{ type: 'Post' as never, id}],
     }),
   }),
 })
@@ -44,6 +44,5 @@ export const { useGetProductsQuery,
   useCreateProductMutation,
   useGetProductQuery,
   useSearchProductsQuery,
-  useGetOwnProductsQuery,
   useUpdateProductMutation
 } = productsApi;

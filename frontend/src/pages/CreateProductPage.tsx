@@ -24,8 +24,9 @@ function CreateProductPage() {
     const formData = new FormData(event.currentTarget);
     const res = await createProduct(formData);
 
-    if (res.error) {
-      enqueueSnackbar(res.error.data.message, { variant: 'error'})
+    if ('error' in res) {
+      const error = res.error as ApiError;
+      enqueueSnackbar(error.data.message, { variant: 'error'})
       return
     }
 

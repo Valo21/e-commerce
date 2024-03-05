@@ -5,7 +5,7 @@ import { Box, CardMedia } from "@mui/material";
 function ImageCarousel({images, title}: ImageCarouselProps) : ReactElement {
 
   return (
-    <Carousel animation='slide' sx={{height: 480}}>
+    <Carousel animation='slide' sx={{ height: 480 }}>
       {
         images.map( (image, i) =>
           <Box key={i}>

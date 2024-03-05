@@ -10,14 +10,14 @@ import { USDollar } from "@lib/utils.ts";
 import { Product } from "@backend/products/entities/product.entity.ts";
 import IconButton from "@mui/material/IconButton";
 import { EditRounded } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { enqueueSnackbar } from "notistack";
 
-function ProductPage() {
+function ProductPage() : ReactElement{
   const params = useParams()
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.auth.user);
-  let { data } = useGetProductQuery(params.id!);
+  const { data } = useGetProductQuery(params.id!);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [updateProduct] = useUpdateProductMutation()
 
@@ -31,10 +31,12 @@ function ProductPage() {
     if (data == undefined) return null;
     const res = await updateProduct([data.id, formData])
 
-    if (res.error) {
-      enqueueSnackbar(res.error.data.message, { variant: 'error'})
+    if ('error' in res) {
+      const error = res.error as ApiError;
+      enqueueSnackbar(error.data.message, { variant: 'error'})
       return
     }
+
     enqueueSnackbar('Product updated', { variant: 'success'})
     setIsEditing(false)
   }
@@ -107,7 +109,7 @@ function ProductPage() {
         Related
       </Typography>
       <Container sx={styles.relatedContainer}>
-          <Grid container spacing={{ xs: 2 }} columns={{ xs: 12 }} sx={{width: 'fit-content'}} wrap='nowrap' sx={styles.relatedBox}>
+          <Grid container spacing={{ xs: 2 }} columns={{ xs: 12 }} wrap='nowrap' sx={styles.relatedBox}>
             {
               data.related!.map((product: Product, i: number) => (
                 <Grid item key={i} sx={{width: 400}}>
