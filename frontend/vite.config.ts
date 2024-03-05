@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react'
 const root = resolve(__dirname, 'src')
 
 export default defineConfig(({mode})=> {
-  const commonConfig: UserConfig = {
+  const config: UserConfig = {
     plugins: [react()],
     resolve: {
       alias: {
@@ -23,18 +23,16 @@ export default defineConfig(({mode})=> {
   }
 
   if (mode == 'development') {
-    return {
-      ...commonConfig,
-      server: {
-        proxy: {
-          '/api': {
-            target: 'http://localhost:3000',
-            changeOrigin: true,
-            secure: false,
-            ws: true,
-          },
-        }
-      },
+    config.server = {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          secure: false,
+          ws: true,
+        },
+      }
     }
   }
+  return config;
 })
