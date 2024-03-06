@@ -7,15 +7,17 @@ import {
   Param,
   Delete,
   UseInterceptors,
-  UploadedFile, UseGuards, Res, Req, UploadedFiles, Query
-} from "@nestjs/common";
+  UseGuards,
+  Req,
+  UploadedFiles,
+  Query,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { FileInterceptor, FilesInterceptor, NoFilesInterceptor } from "@nestjs/platform-express";
-import { JwtAuthGuard } from "../auth/jwt-auth.guard";
-import { Request } from 'express';
-import { User } from "../users/entities/user.entity";
+import { FilesInterceptor, NoFilesInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { User } from '../users/entities/user.entity';
 
 @Controller('products')
 export class ProductsController {

@@ -1,8 +1,8 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { CreateUserDto } from "../users/dto/create-user.dto";
-import { UsersService } from "../users/users.service";
-import { JwtService } from "@nestjs/jwt";
-import { User } from "../users/entities/user.entity";
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { CreateUserDto } from '../users/dto/create-user.dto';
+import { UsersService } from '../users/users.service';
+import { JwtService } from '@nestjs/jwt';
+import { User } from '../users/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -20,12 +20,13 @@ export class AuthService {
     if (!bcrypt.compareSync(pass, user.password)) {
       throw new UnauthorizedException('Wrong password');
     }
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = user;
     return result;
   }
 
   async signIn(user: Partial<User>) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { createdAt, updatedAt, ...payload } = user;
     return {
       access_token: this.jwtService.sign(payload),

@@ -26,7 +26,7 @@ export default defineConfig(({mode})=> {
     config.server = {
       proxy: {
         '/api': {
-          target: 'http://localhost:3000',
+          target: 'https://e-commerce-sn3w.onrender.com',
           changeOrigin: true,
           secure: false,
           ws: true,
