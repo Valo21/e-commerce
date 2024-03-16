@@ -11,7 +11,7 @@ function ImageCarousel({ images, title }: ImageCarouselProps): ReactElement {
           <Box key={i}>
             <CardMedia
               sx={{ aspectRatio: 'auto', height: 480, backgroundSize: 'contain' }}
-              image={`http://localhost:3000/uploads/${image}`}
+              image={`/uploads/${image}`}
               title={title}
             />
           </Box>
