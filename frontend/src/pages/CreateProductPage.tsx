@@ -54,6 +54,7 @@ function CreateProductPage() {
             type='number'
             required
           />
+          <TextField name='description' id="standard-basic" label="Description" variant="standard" required multiline/>
           <TextField
             id="outlined-select-currency"
             name='category'
