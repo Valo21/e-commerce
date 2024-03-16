@@ -20,6 +20,11 @@ export class Product {
   @Column('decimal')
   price: number;
 
+  @Column('varchar', {
+    default: () => "''",
+  })
+  description: string = '';
+
   @Column('jsonb', {
     array: false,
     default: () => "'[]'",
