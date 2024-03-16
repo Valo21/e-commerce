@@ -2,12 +2,12 @@ import { ReactElement } from "react";
 import Carousel from "react-material-ui-carousel";
 import { Box, CardMedia } from "@mui/material";
 
-function ImageCarousel({images, title}: ImageCarouselProps) : ReactElement {
+function ImageCarousel({ images, title }: ImageCarouselProps): ReactElement {
 
   return (
     <Carousel animation='slide' sx={{ height: 480 }}>
       {
-        images.map( (image, i) =>
+        images.map((image, i) =>
           <Box key={i}>
             <CardMedia
               sx={{ aspectRatio: 'auto', height: 480, backgroundSize: 'contain' }}

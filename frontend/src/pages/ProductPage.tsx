@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import { EditRounded } from "@mui/icons-material";
 import React, { ReactElement, useState } from "react";
 import { enqueueSnackbar } from "notistack";
+import Divider from "@mui/material/Divider";
 
 function ProductPage() : ReactElement{
   const params = useParams()
@@ -80,6 +81,7 @@ function ProductPage() : ReactElement{
                   type='number'
                   required
                 />
+                <TextField name='description' defaultValue={data.description} label="Description" variant="standard" required multiline/>
                 <Button variant='contained' color='success' type='submit'>
                   Save
                 </Button>
@@ -102,6 +104,15 @@ function ProductPage() : ReactElement{
               <Button variant='contained' onClick={()=> dispatch(addProduct(data))}>
                 Add to cart
               </Button>
+              <Box>
+                <Typography variant='h6'>
+                  Description
+                </Typography>
+                <Divider/>
+                <Typography variant='body1' sx={{marginTop: 1}}>
+                  {data.description}
+                </Typography>
+              </Box>
             </>
         }
       </Paper>
