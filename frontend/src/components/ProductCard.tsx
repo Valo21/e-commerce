@@ -15,7 +15,7 @@ function ProductCard({ data }: ProductCardProps) : ReactElement {
             <CardMedia
               sx={{ height: 200 }}
               image={`/uploads/${data.images[0]}`}
-              title="green iguana"
+              title={data.name}
             />
             <CardContent>
               <Typography gutterBottom variant="h6" component="div">
