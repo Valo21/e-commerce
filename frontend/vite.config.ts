@@ -17,7 +17,26 @@ export default defineConfig(({mode})=> {
         "@hooks": resolve(root, "hooks"),
         "@pages": resolve(root, "pages"),
         "@assets": resolve(root, "assets"),
-        "@backend": resolve(root, "../src"),
+        "@backend": resolve(root, "../backend/src"),
+      }
+    }
+  }
+
+  if (mode == 'production') {
+    config.server = {
+      proxy: {
+        '/api': {
+          target: 'https://e-commerce-sn3w.onrender.com/',
+          changeOrigin: true,
+          secure: false,
+          ws: true,
+        },
+        '/uploads': {
+          target: 'https://e-commerce-sn3w.onrender.com',
+          changeOrigin: true,
+          secure: false,
+          ws: true,
+        },
       }
     }
   }
@@ -26,7 +45,13 @@ export default defineConfig(({mode})=> {
     config.server = {
       proxy: {
         '/api': {
-          target: 'https://e-commerce-sn3w.onrender.com',
+          target: 'http://localhost:3000/',
+          changeOrigin: true,
+          secure: false,
+          ws: true,
+        },
+        '/uploads': {
+          target: 'http://localhost:3000',
           changeOrigin: true,
           secure: false,
           ws: true,

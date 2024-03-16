@@ -32,7 +32,7 @@
       "@hooks/*": ["./src/hooks/*"],
       "@pages/*": ["./src/pages/*"],
       "@assets/*": ["./src/assets/*"],
-      "@backend/*": ["../src/*"]
+      "@backend/*": ["../backend/src/*"]
     }
   },
   "include": ["src"],
