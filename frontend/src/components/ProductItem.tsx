@@ -19,7 +19,7 @@ function ProductItem({data}: ProductItemProps) : ReactElement {
         <ListItemAvatar>
           <CardMedia
             sx={{ height: 50 }}
-            image={`http://localhost:3000/uploads/${data.images[0]}`}
+            image={`/uploads/${data.images[0]}`}
             title="green iguana"
           />
         </ListItemAvatar>
