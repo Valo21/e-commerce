@@ -21,25 +21,6 @@ export default defineConfig(({mode})=> {
     }
   }
 
-  if (mode == 'production') {
-    config.server = {
-      proxy: {
-        '/api': {
-          target: 'https://e-commerce-sn3w.onrender.com',
-          changeOrigin: true,
-          secure: false,
-          ws: true,
-        },
-        '/uploads': {
-          target: 'https://e-commerce-sn3w.onrender.com',
-          changeOrigin: true,
-          secure: false,
-          ws: true,
-        },
-      }
-    }
-  }
-
   if (mode == 'development') {
     config.server = {
       proxy: {
