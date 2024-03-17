@@ -1,4 +1,4 @@
-import { Product } from "@backend/products/entities/product.entity";
+import { Product } from "@src/types";
 
 interface CartItem extends Product {
   amount: number

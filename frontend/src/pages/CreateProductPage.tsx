@@ -3,6 +3,7 @@ import { Box, Button, InputAdornment, MenuItem, Paper, TextField } from "@mui/ma
 import { useCreateProductMutation } from "@store/api/productsApi";
 import { useSnackbar } from "notistack";
 import ImageUploader from "@components/ImageUploader.tsx";
+import { ApiError } from "@src/types";
 
 enum ProductCategory {
   Clothing = 'Clothing',

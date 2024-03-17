@@ -3,14 +3,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { useAppDispatch } from "@hooks/redux";
 import { addProduct, removeProduct } from "@store/slices/cartSlice";
 import { ReactElement } from "react";
 import { ProductItemProps } from "./types/ProductItem";
 
-function ProductItem({data}: ProductItemProps) : ReactElement {
+function ProductItem({ data }: ProductItemProps) : ReactElement {
   const dispatch = useAppDispatch()
 
   return (
