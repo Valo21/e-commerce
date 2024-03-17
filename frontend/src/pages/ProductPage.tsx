@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { addProduct } from "@store/slices/cartSlice";
 import ImageCarousel from "@components/ImageCarousel";
 import { USDollar } from "@lib/utils.ts";
-import { Product } from "@backend/products/entities/product.entity.ts";
+import { ApiError, Product } from "@src/types";
 import IconButton from "@mui/material/IconButton";
 import { EditRounded } from "@mui/icons-material";
 import React, { ReactElement, useState } from "react";

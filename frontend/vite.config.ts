@@ -1,6 +1,6 @@
-import {resolve} from 'path'
+import { resolve } from "path";
 import { defineConfig, UserConfig } from "vite";
-import react from '@vitejs/plugin-react'
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 const root = resolve(__dirname, 'src')
@@ -17,7 +17,6 @@ export default defineConfig(({mode})=> {
         "@hooks": resolve(root, "hooks"),
         "@pages": resolve(root, "pages"),
         "@assets": resolve(root, "assets"),
-        "@backend": resolve(root, "../backend/src"),
       }
     }
   }

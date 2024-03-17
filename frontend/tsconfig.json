@@ -32,7 +32,6 @@
       "@hooks/*": ["./src/hooks/*"],
       "@pages/*": ["./src/pages/*"],
       "@assets/*": ["./src/assets/*"],
-      "@backend/*": ["../backend/src/*"]
     }
   },
   "include": ["src"],

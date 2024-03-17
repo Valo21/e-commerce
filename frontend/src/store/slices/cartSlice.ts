@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Product } from "@backend/products/entities/product.entity.ts";
+import { Product } from "@src/types";
 
 interface ProductsState {
   products: {[key: string]: Product & {
